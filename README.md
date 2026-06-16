@@ -4,6 +4,8 @@ Transform any photo into a different artistic style using a local LLM and Stable
 
 ![AI Image Style Transformer](https://img.shields.io/badge/Stable%20Diffusion-XL-blue) ![Ollama](https://img.shields.io/badge/LLM-Ollama-green) ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688)
 
+![App Screenshot](assets/image-restyler.png)
+
 ## How It Works
 
 1. Upload a photo and describe the style you want (e.g. "make it look like an anime")
