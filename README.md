@@ -28,8 +28,8 @@ Transform any photo into a different artistic style using a local LLM and Stable
 
 **1. Clone the repository**
 ```bash
-git clone <your-repo-url>
-cd <your-repo-name>
+git clone https://github.com/rendraep/image-restyler.git
+cd image-restyler
 ```
 
 **2. Install Ollama and pull a model**
