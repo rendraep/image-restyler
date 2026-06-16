@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Image Style Transformer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-logo">
+          <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="8" fill="rgba(255,255,255,0.15)"/>
+            <text x="18" y="25" text-anchor="middle" font-size="18" fill="white">🎨</text>
+          </svg>
+        </div>
+        <div>
+          <h1>AI Image Style Transformer</h1>
+          <p>Upload a photo, describe the style — Ollama + Stable Diffusion does the rest</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge">Ollama LLM</span>
+        <span class="badge">Stable Diffusion XL</span>
+        <span class="badge">img2img</span>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Left column: input -->
+      <div class="panel input-panel">
+
+        <section class="upload-section">
+          <div class="section-label">1 — Upload Image</div>
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                   stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/>
+                <path d="m21 15-5-5L5 21"/>
+              </svg>
+              <p>Drag &amp; drop an image here</p>
+              <p class="hint">or <span class="link" id="browseLink">browse files</span> &nbsp;·&nbsp; JPG, PNG, WebP</p>
+            </div>
+            <img id="previewImage" class="preview-img hidden" alt="Preview" />
+            <button class="clear-btn hidden" id="clearBtn" title="Remove image">✕</button>
+            <input type="file" id="fileInput" accept="image/*" hidden />
+          </div>
+        </section>
+
+        <section class="prompt-section">
+          <div class="section-label">2 — Describe the Style</div>
+          <textarea
+            id="promptInput"
+            rows="3"
+            placeholder="e.g. Make this a cartoon&#10;e.g. Convert to anime style&#10;e.g. Make it look like an oil painting"
+          ></textarea>
+          <div class="prompt-tips">
+            <strong>Tips:</strong> Try cartoon, anime, watercolor, oil painting, sketch, pixel art, cyberpunk…
+          </div>
+          <button class="btn-process" id="processBtn" disabled>
+            <span class="btn-icon">🎨</span> Transform Image
+          </button>
+        </section>
+
+      </div>
+
+      <!-- Right column: dynamic panels -->
+      <div class="right-col">
+
+        <!-- Progress -->
+        <div class="panel progress-panel hidden" id="progressPanel">
+          <div class="section-label">Processing</div>
+          <div class="steps">
+            <div class="step" id="step1" data-num="1">
+              <div class="step-dot"></div>
+              <div class="step-body">
+                <div class="step-title">Analyzing style request with Ollama</div>
+                <div class="step-detail" id="step1Detail"></div>
+              </div>
+            </div>
+            <div class="step" id="step2" data-num="2">
+              <div class="step-dot"></div>
+              <div class="step-body">
+                <div class="step-title">Transforming image with Stable Diffusion XL</div>
+                <div class="step-detail" id="step2Detail"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="panel results-panel hidden" id="resultsPanel">
+          <div class="results-header">
+            <div class="section-label">Result</div>
+            <button class="btn-retry" id="retryBtn">Try another</button>
+          </div>
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <div class="card-label">Original</div>
+              <img id="originalImg" alt="Original image" />
+            </div>
+            <div class="comparison-arrow">→</div>
+            <div class="comparison-card result-card">
+              <div class="card-label">Transformed</div>
+              <img id="resultImg" alt="Result image" />
+            </div>
+          </div>
+          <div class="results-footer">
+            <div class="ai-summary" id="aiSummary"></div>
+            <button class="btn-download" id="downloadBtn">↓ Download PNG</button>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="panel error-panel hidden" id="errorPanel">
+          <div class="error-icon">⚠</div>
+          <div>
+            <div class="error-title">Something went wrong</div>
+            <div class="error-message" id="errorMessage"></div>
+          </div>
+          <button class="btn-dismiss" id="dismissError">Dismiss</button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
